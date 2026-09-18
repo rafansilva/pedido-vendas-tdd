@@ -3,7 +3,7 @@ package com.algaworks;
 public class ItemPedido {
 
     private String descricao;
-    private Double valor;
+    private double valor;
     private int quantidade;
 
     public ItemPedido(String descricao, Double valor, int quantidade) {

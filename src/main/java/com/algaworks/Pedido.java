@@ -1,19 +1,25 @@
 package com.algaworks;
 
-public class Pedido {
+import java.util.ArrayList;
+import java.util.List;
 
-    private double valorTotal = 0;
-    private double desconto = 0;
+public class Pedido {
+    private List<ItemPedido> itens = new ArrayList<>();
 
     public void adicionarItem(ItemPedido itemPedido) {
-        valorTotal = itemPedido.getValor() *  itemPedido.getQuantidade();
+        itens.add(itemPedido);
     }
 
-    public double valorTotal() {
-        return valorTotal;
-    }
+    public ResumoPedido resumoPedido() {
+        double valorTotal = itens.stream().mapToDouble(i -> i.getValor() * i.getQuantidade()).sum();
+        double desconto = 0;
 
-    public double desconto() {
-        return  desconto;
+        if (valorTotal > 300.0 && valorTotal <= 800.0) {
+            desconto = valorTotal * 0.04;
+        } else  if (valorTotal > 800.0 && valorTotal <= 900.0) {
+            desconto = valorTotal * 0.06;
+        }
+
+        return new ResumoPedido(valorTotal, desconto);
     }
 }
